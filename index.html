@@ -45,7 +45,7 @@ body{
     z-index:10;
 }
 
-/* STEPS */
+/* PAGES */
 
 .step{
     display:none;
@@ -58,7 +58,7 @@ body{
     display:flex;
 }
 
-/* BUTTONS */
+/* BUTTON */
 
 .btn{
     background:var(--pink);
@@ -84,18 +84,19 @@ body{
 .slideshow-container{
     position:relative;
     width:100%;
-    height:60vh;
-    max-height:500px;
-    min-height:320px;
+    height:420px;
     margin-top:20px;
     overflow:hidden;
     border-radius:25px;
     border:4px solid #ff4d6d;
     box-shadow:0 0 30px rgba(255,77,109,0.7);
     background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* HEARTS TOP */
+/* HEART EFFECT */
 
 .slideshow-container::before{
     content:"❤️ ❤️ ❤️";
@@ -126,14 +127,14 @@ body{
     }
 }
 
-/* SLIDES */
+/* IMAGES */
 
 .slide{
     position:absolute;
     width:100%;
     height:100%;
-    object-fit:contain;
-    background:black;
+    object-fit:cover;
+    object-position:center;
     opacity:0;
     transition:opacity 1.5s ease-in-out;
     border-radius:20px;
@@ -147,7 +148,7 @@ body{
     opacity:1;
 }
 
-/* IMAGE HOVER */
+/* HOVER */
 
 .slide:hover{
     transform:scale(1.01);
@@ -157,7 +158,7 @@ body{
     0 0 60px #ff4d6d;
 }
 
-/* FULL SCREEN */
+/* FULLSCREEN */
 
 #fullScreen{
     position:fixed;
@@ -182,7 +183,7 @@ body{
     box-shadow:0 0 40px #ff4d6d;
 }
 
-/* MESSAGE BOX */
+/* MESSAGE */
 
 .typing-text{
     background:#1a1a1a;
@@ -243,7 +244,7 @@ body{
     }
 }
 
-/* MOBILE */
+/* MOBILE FIX */
 
 @media(max-width:600px){
 
@@ -252,7 +253,12 @@ body{
     }
 
     .slideshow-container{
-        height:55vh;
+        height:500px;
+    }
+
+    .slide{
+        object-fit:contain;
+        background:black;
     }
 
     .typing-text{
@@ -419,7 +425,7 @@ body{
 
     <div class="slideshow-container">
 
-        <!-- CHANGE PHOTO NAMES -->
+        <!-- CHANGE IMAGE NAMES -->
 
         <img class="slide active-slide"
              src="photo1.jpg"
@@ -463,7 +469,7 @@ body{
 
 </div>
 
-<!-- FULL SCREEN -->
+<!-- FULLSCREEN -->
 
 <div id="fullScreen"
      onclick="closeFull()">
@@ -587,7 +593,7 @@ function typeWriter(){
     type();
 }
 
-/* FULLSCREEN */
+/* FULLSCREEN IMAGE */
 
 function openFull(src){
 
