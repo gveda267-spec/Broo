@@ -236,13 +236,13 @@ body{
 <!-- FIRST MUSIC -->
 
 <audio id="openingMusic">
-    <source src="birthday_song.mp3" type="audio/mpeg">
+    <source src="opening.mp3" type="audio/mpeg">
 </audio>
 
 <!-- SECOND MUSIC -->
 
 <audio id="slideMusic" loop>
-    <source src="slid music.mp3" type="audio/mpeg">
+    <source src="birthday_song.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -417,7 +417,7 @@ body{
     </div>
 
     <button class="btn"
-        onclick="stopSlideMusic(); nextStep(8)">
+        onclick="nextStep(8)">
 
         FINAL SURPRISE 🎁
 
@@ -530,14 +530,6 @@ function startSlideMusic(){
         console.log(err);
 
     });
-}
-
-/* STOP MUSIC */
-
-function stopSlideMusic(){
-
-    document.getElementById('slideMusic')
-    .pause();
 }
 
 /* NO BUTTON */
