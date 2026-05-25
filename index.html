@@ -131,13 +131,12 @@ body{
     object-fit:contain;
 }
 
-/* MESSAGE */
+/* MESSAGE WITH BLUR IMAGE */
 
 .typing-text{
-    background:#111;
+    position:relative;
     padding:20px;
-    border-radius:15px;
-    border-left:4px solid #ff4d6d;
+    border-radius:20px;
     color:#00ffcc;
     text-align:left;
     line-height:1.7;
@@ -145,6 +144,30 @@ body{
     overflow-y:auto;
     font-size:20px;
     scrollbar-width:none;
+    z-index:1;
+    overflow:hidden;
+}
+
+/* BLUR IMAGE BACKGROUND */
+
+.typing-text::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url('photo5.jpg') center/cover no-repeat;
+    filter:blur(12px);
+    transform:scale(1.1);
+    z-index:-2;
+}
+
+/* DARK OVERLAY */
+
+.typing-text::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:-1;
 }
 
 .typing-text::-webkit-scrollbar{
@@ -203,6 +226,7 @@ body{
     .typing-text{
         font-size:17px;
         height:260px;
+        padding:18px;
     }
 
     .btn{
@@ -217,10 +241,16 @@ body{
 
 <body>
 
-<!-- MUSIC -->
+<!-- OPENING MUSIC -->
 
-<audio id="bgMusic" loop>
-    <source src="birthday_song.mp3" type="audio/mpeg">
+<audio id="openingMusic">
+    <source src="birthday_song.mp3 " type="audio/mpeg">
+</audio>
+
+<!-- SLIDESHOW MUSIC -->
+
+<audio id="slideMusic" loop>
+    <source src="slid music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -305,7 +335,7 @@ body{
     </h1>
 
     <button class="btn"
-        onclick="startMusic(); nextStep(5)">
+        onclick="startOpeningMusic(); nextStep(5)">
         PLAY MUSIC ▶
     </button>
 
@@ -353,7 +383,7 @@ body{
     <button class="btn"
         id="cakeNextBtn"
         style="display:none;"
-        onclick="celebrate(); nextStep(7)">
+        onclick="celebrate(); nextStep(7); startSlideMusic();">
         NEXT SURPRISE 🎉
     </button>
 
@@ -369,8 +399,6 @@ body{
         font-size:30px;">
         📸 Beautiful Memories 📸
     </h2>
-
-    <!-- SIMPLE AUTO SLIDESHOW -->
 
     <div class="simple-slider">
 
@@ -431,9 +459,9 @@ body{
 
 const message =
 
-`Dear ❤️
+`Dear sanjii❤️
 
-You are one of the most special persons in my life.
+You are one of the most special person in my life.
 
 Thank you for all the smiles,
 support,
@@ -445,7 +473,7 @@ success,
 love,
 and endless joy 🎂✨
 
-Happy Birthday Once Again ❤️`;
+Happy Birthday Once Again Anna❤️`;
 
 function nextStep(num){
 
@@ -461,11 +489,22 @@ function nextStep(num){
     }
 }
 
-/* MUSIC */
+/* OPENING MUSIC */
 
-function startMusic(){
+function startOpeningMusic(){
 
-    document.getElementById('bgMusic')
+    document.getElementById('openingMusic')
+    .play();
+}
+
+/* SLIDESHOW MUSIC */
+
+function startSlideMusic(){
+
+    document.getElementById('openingMusic')
+    .pause();
+
+    document.getElementById('slideMusic')
     .play();
 }
 
