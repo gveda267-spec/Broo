@@ -17,19 +17,24 @@
     --black:#0a0a0a;
 }
 
-body{
+*{
     margin:0;
     padding:0;
+    box-sizing:border-box;
+}
+
+body{
     background:var(--black);
     color:white;
     font-family:'Courier New', Courier, monospace;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
     overflow:hidden;
     text-align:center;
     transition:1s;
+    position:relative;
 }
 
 .container{
@@ -68,85 +73,79 @@ body{
     background:#ff1a4a;
 }
 
-.typing-text{
-    background:#1a1a1a;
-    padding:20px;
-    border-radius:15px;
-    border-left:4px solid var(--pink);
-    color:#00ffcc;
-    text-align:left;
-    line-height:1.7;
-    height:300px;
-    overflow-y:auto;
-    font-size:20px;
-    scrollbar-width:none;
-}
+/* SLIDESHOW */
 
-.typing-text::-webkit-scrollbar{
-    display:none;
-}
-
-/* SLIDER */
-
-.slider{
+.slideshow-container{
+    position:relative;
     width:100%;
+    height:450px;
+    margin-top:20px;
     overflow:hidden;
     border-radius:25px;
-    margin-top:20px;
-    border:3px solid #ff4d6d;
-    box-shadow:0 0 25px rgba(255,77,109,0.6);
-    position:relative;
+    border:4px solid #ff4d6d;
+    box-shadow:0 0 30px rgba(255,77,109,0.7);
 }
 
-.slides{
-    display:flex;
-    width:400%;
-    animation:slideShow 45s infinite;
+/* HEART FRAME */
+
+.slideshow-container::before{
+    content:"❤️ ❤️ ❤️";
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+    font-size:22px;
+    animation:heartGlow 2s infinite;
 }
 
-.slides img{
+@keyframes heartGlow{
+
+    0%{
+        opacity:0.5;
+        transform:translateX(-50%) scale(1);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateX(-50%) scale(1.2);
+    }
+
+    100%{
+        opacity:0.5;
+        transform:translateX(-50%) scale(1);
+    }
+}
+
+.slide{
+    position:absolute;
     width:100%;
-    height:420px;
+    height:100%;
     object-fit:cover;
-    border-radius:25px;
+    opacity:0;
+    transition:opacity 1.5s ease-in-out;
+    border-radius:20px;
     cursor:pointer;
-    padding:10px;
-    box-sizing:border-box;
-    transition:0.4s;
+    padding:8px;
 }
 
-.slides img:hover{
-    transform:scale(1.02);
+/* ONLY ONE IMAGE SHOWS */
+
+.active-slide{
+    opacity:1;
+}
+
+/* HOVER EFFECT */
+
+.slide:hover{
+    transform:scale(1.01);
     box-shadow:
     0 0 20px #ff4d6d,
     0 0 40px #ff4d6d,
     0 0 60px #ff4d6d;
 }
 
-/* AUTO SLIDE */
-
-@keyframes slideShow{
-
-    0%{ transform:translateX(0%); }
-
-    20%{ transform:translateX(0%); }
-
-    25%{ transform:translateX(-100%); }
-
-    45%{ transform:translateX(-100%); }
-
-    50%{ transform:translateX(-200%); }
-
-    70%{ transform:translateX(-200%); }
-
-    75%{ transform:translateX(-300%); }
-
-    95%{ transform:translateX(-300%); }
-
-    100%{ transform:translateX(0%); }
-}
-
-/* FULL SCREEN */
+/* FULL SCREEN IMAGE */
 
 #fullScreen{
     position:fixed;
@@ -167,6 +166,26 @@ body{
     border-radius:20px;
     border:4px solid #ff4d6d;
     box-shadow:0 0 40px #ff4d6d;
+}
+
+/* TYPING TEXT */
+
+.typing-text{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+    border-left:4px solid var(--pink);
+    color:#00ffcc;
+    text-align:left;
+    line-height:1.7;
+    height:300px;
+    overflow-y:auto;
+    font-size:20px;
+    scrollbar-width:none;
+}
+
+.typing-text::-webkit-scrollbar{
+    display:none;
 }
 
 /* FLOATING HEARTS */
@@ -214,6 +233,8 @@ body{
 
 <body>
 
+<!-- MUSIC -->
+
 <audio id="bgMusic" loop>
     <source src="birthday_song.mp3" type="audio/mpeg">
 </audio>
@@ -228,11 +249,12 @@ body{
         🎂 It's Your Special Day ❤️
     </h1>
 
-    <p>
+    <p style="margin-top:15px;">
         Today is all about you ✨
     </p>
 
-    <button class="btn" onclick="nextStep(2)">
+    <button class="btn"
+        onclick="nextStep(2)">
         NEXT ➜
     </button>
 
@@ -246,11 +268,12 @@ body{
         ❤️ A Special Surprise ❤️
     </h2>
 
-    <p>
+    <p style="margin-top:15px;">
         Because you are very special to me ❤️
     </p>
 
-    <button class="btn" onclick="nextStep(3)">
+    <button class="btn"
+        onclick="nextStep(3)">
         CONTINUE ✨
     </button>
 
@@ -264,13 +287,15 @@ body{
         👀 Wanna See What I Made?
     </h2>
 
-    <div style="display:flex; gap:20px;">
+    <div style="display:flex; gap:20px; margin-top:20px;">
 
-        <button class="btn" onclick="nextStep(4)">
+        <button class="btn"
+            onclick="nextStep(4)">
             YES 😍
         </button>
 
-        <button class="btn" onclick="showNoMessage()">
+        <button class="btn"
+            onclick="showNoMessage()">
             NO 🙈
         </button>
 
@@ -330,7 +355,8 @@ body{
     </button>
 
     <p id="cakeMsg"
-       style="margin-top:20px;
+       style="
+       margin-top:20px;
        color:black;
        font-size:22px;">
     </p>
@@ -352,18 +378,25 @@ body{
         📸 Beautiful Memories 📸
     </h2>
 
-    <div class="slider">
+    <div class="slideshow-container">
 
-        <div class="slides">
+        <!-- CHANGE PHOTO NAMES -->
 
-            <!-- CHANGE THESE PHOTO NAMES -->
+        <img class="slide active-slide"
+             src="photo1.jpg"
+             onclick="openFull(this.src)">
 
-            <img src="photo1.jpg" onclick="openFull(this.src)">
-            <img src="photo2.jpg" onclick="openFull(this.src)">
-            <img src="photo3.jpg" onclick="openFull(this.src)">
-            <img src="photo4.jpg" onclick="openFull(this.src)">
+        <img class="slide"
+             src="photo2.jpg"
+             onclick="openFull(this.src)">
 
-        </div>
+        <img class="slide"
+             src="photo3.jpg"
+             onclick="openFull(this.src)">
+
+        <img class="slide"
+             src="photo4.jpg"
+             onclick="openFull(this.src)">
 
     </div>
 
@@ -391,7 +424,7 @@ body{
 
 </div>
 
-<!-- FULL SCREEN VIEW -->
+<!-- FULL SCREEN IMAGE VIEW -->
 
 <div id="fullScreen"
      onclick="closeFull()">
@@ -434,11 +467,15 @@ function nextStep(num){
     }
 }
 
+/* MUSIC */
+
 function startMusic(){
 
     document.getElementById('bgMusic')
     .play();
 }
+
+/* NO BUTTON */
 
 function showNoMessage(){
 
@@ -447,11 +484,15 @@ function showNoMessage(){
     "😎 Smart people click YES!";
 }
 
+/* LIGHTS */
+
 function lightsOn(){
 
     document.body.style.background = "white";
     document.body.style.color = "black";
 }
+
+/* CAKE */
 
 function showCakeMessage(){
 
@@ -463,6 +504,8 @@ function showCakeMessage(){
     .style.display = "inline-block";
 }
 
+/* CONFETTI */
+
 function celebrate(){
 
     confetti({
@@ -472,6 +515,8 @@ function celebrate(){
         colors:['#ff4d6d','#ffffff','#ffd700']
     });
 }
+
+/* TYPEWRITER */
 
 function typeWriter(){
 
@@ -503,7 +548,7 @@ function typeWriter(){
     type();
 }
 
-/* FULL SCREEN IMAGE */
+/* FULLSCREEN IMAGE */
 
 function openFull(src){
 
@@ -520,11 +565,37 @@ function closeFull(){
     .style.display = "none";
 }
 
+/* AUTO SLIDESHOW */
+
+let slideIndex = 0;
+
+const slides =
+document.querySelectorAll(".slide");
+
+function autoSlide(){
+
+    slides.forEach(slide =>
+        slide.classList.remove("active-slide"));
+
+    slideIndex++;
+
+    if(slideIndex >= slides.length){
+        slideIndex = 0;
+    }
+
+    slides[slideIndex]
+    .classList.add("active-slide");
+}
+
+/* CHANGE IMAGE EVERY 4 SECONDS */
+
+setInterval(autoSlide, 4000);
+
 /* FLOATING HEARTS */
 
 function createDots(){
 
-    for(let i=0;i<20;i++){
+    for(let i=0;i<25;i++){
 
         const dot =
         document.createElement('div');
