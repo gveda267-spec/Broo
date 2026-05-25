@@ -3,341 +3,410 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Special Birthday Surprise ❤️</title>
+<title>Special Birthday Surprise ❤️</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <style>
+<style>
 
-        :root{
-            --pink:#ff4d6d;
-            --black:#0a0a0a;
-        }
+:root{
+    --pink:#ff4d6d;
+    --black:#0a0a0a;
+}
 
-        body{
-            margin:0;
-            padding:0;
-            background:var(--black);
-            color:white;
-            font-family:'Courier New', Courier, monospace;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            overflow:hidden;
-            text-align:center;
-            transition:1s;
-        }
+body{
+    margin:0;
+    padding:0;
+    background:var(--black);
+    color:white;
+    font-family:'Courier New', Courier, monospace;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    text-align:center;
+    transition:1s;
+}
 
-        .container{
-            width:90%;
-            max-width:450px;
-            z-index:10;
-        }
+.container{
+    width:90%;
+    max-width:450px;
+    z-index:10;
+}
 
-        .step{
-            display:none;
-            flex-direction:column;
-            align-items:center;
-            animation:fadeIn 1s ease;
-        }
+.step{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    animation:fadeIn 1s ease;
+}
 
-        .step.active{
-            display:flex;
-        }
+.step.active{
+    display:flex;
+}
 
-        .btn{
-            background:var(--pink);
-            border:none;
-            color:white;
-            padding:14px 28px;
-            border-radius:30px;
-            cursor:pointer;
-            margin-top:20px;
-            font-size:16px;
-            font-weight:bold;
-            transition:0.3s;
-            box-shadow:0 4px 15px rgba(255,77,109,0.4);
-        }
+.btn{
+    background:var(--pink);
+    border:none;
+    color:white;
+    padding:14px 28px;
+    border-radius:30px;
+    cursor:pointer;
+    margin-top:20px;
+    font-size:16px;
+    font-weight:bold;
+    transition:0.3s;
+    box-shadow:0 4px 15px rgba(255,77,109,0.4);
+}
 
-        .btn:hover{
-            transform:scale(1.05);
-            background:#ff1a4a;
-        }
+.btn:hover{
+    transform:scale(1.05);
+    background:#ff1a4a;
+}
 
-        .gallery-container{
-            width:100%;
-            height:50vh;
-            overflow-y:auto;
-            border:2px solid var(--pink);
-            border-radius:15px;
-            padding:10px;
-            background:rgba(255,255,255,0.05);
-            margin-top:20px;
-        }
+.typing-text{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+    border-left:4px solid var(--pink);
+    color:#00ffcc;
+    text-align:left;
+    line-height:1.7;
+    height:300px;
+    overflow-y:auto;
+    font-size:20px;
+    scrollbar-width:none;
+}
 
-        .gallery-container img{
-            width:95%;
-            border-radius:15px;
-            margin-bottom:15px;
-            border:2px solid white;
-        }
+.typing-text::-webkit-scrollbar{
+    display:none;
+}
 
-        .typing-text{
-            background:#1a1a1a;
-            padding:20px;
-            border-radius:15px;
-            border-left:4px solid var(--pink);
-            color:#00ffcc;
-            text-align:left;
-            line-height:1.7;
-            height:300px;
-            overflow-y:auto;
-            font-size:20px;
-            scrollbar-width:none;
-        }
+/* SLIDER */
 
-        .typing-text::-webkit-scrollbar{
-            display:none;
-        }
+.slider{
+    width:100%;
+    overflow:hidden;
+    border-radius:25px;
+    margin-top:20px;
+    border:3px solid #ff4d6d;
+    box-shadow:0 0 25px rgba(255,77,109,0.6);
+    position:relative;
+}
 
-        .dot{
-            position:absolute;
-            background:#ff3355;
-            border-radius:50% 0 50% 50%;
-            transform:rotate(45deg);
-            opacity:0.3;
-            animation:floatUp 7s linear infinite;
-        }
+.slides{
+    display:flex;
+    width:400%;
+    animation:slideShow 16s infinite;
+}
 
-        @keyframes floatUp{
+.slides img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:25px;
+    cursor:pointer;
+    padding:10px;
+    box-sizing:border-box;
+    transition:0.4s;
+}
 
-            0%{
-                transform:translateY(110vh) rotate(45deg);
-                opacity:0;
-            }
+.slides img:hover{
+    transform:scale(1.02);
+    box-shadow:
+    0 0 20px #ff4d6d,
+    0 0 40px #ff4d6d,
+    0 0 60px #ff4d6d;
+}
 
-            50%{
-                opacity:0.5;
-            }
+/* AUTO SLIDE */
 
-            100%{
-                transform:translateY(-10vh) rotate(405deg);
-                opacity:0;
-            }
-        }
+@keyframes slideShow{
 
-        @keyframes fadeIn{
+    0%{ transform:translateX(0%); }
 
-            from{
-                opacity:0;
-            }
+    20%{ transform:translateX(0%); }
 
-            to{
-                opacity:1;
-            }
-        }
+    25%{ transform:translateX(-100%); }
 
-    </style>
+    45%{ transform:translateX(-100%); }
+
+    50%{ transform:translateX(-200%); }
+
+    70%{ transform:translateX(-200%); }
+
+    75%{ transform:translateX(-300%); }
+
+    95%{ transform:translateX(-300%); }
+
+    100%{ transform:translateX(0%); }
+}
+
+/* FULL SCREEN */
+
+#fullScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#fullScreen img{
+    width:90%;
+    max-width:700px;
+    border-radius:20px;
+    border:4px solid #ff4d6d;
+    box-shadow:0 0 40px #ff4d6d;
+}
+
+/* FLOATING HEARTS */
+
+.dot{
+    position:absolute;
+    background:#ff3355;
+    border-radius:50% 0 50% 50%;
+    transform:rotate(45deg);
+    opacity:0.3;
+    animation:floatUp 7s linear infinite;
+}
+
+@keyframes floatUp{
+
+    0%{
+        transform:translateY(110vh) rotate(45deg);
+        opacity:0;
+    }
+
+    50%{
+        opacity:0.5;
+    }
+
+    100%{
+        transform:translateY(-10vh) rotate(405deg);
+        opacity:0;
+    }
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <!-- SONG -->
+<audio id="bgMusic" loop>
+    <source src="birthday_song.mp3" type="audio/mpeg">
+</audio>
 
-    <audio id="bgMusic" loop>
-        <source src="birthday_song.mp3" type="audio/mpeg">
-    </audio>
+<div class="container">
 
-    <div class="container">
+<!-- PAGE 1 -->
 
-        <!-- PAGE 1 -->
+<div class="step active" id="step1">
 
-        <div class="step active" id="step1">
+    <h1 style="color:#ff4d6d;">
+        🎂 It's Your Special Day ❤️
+    </h1>
 
-            <h1 style="color:#ff4d6d;">
-                🎂 It's Your Special Day, Sanjiii ❤️
-            </h1>
+    <p>
+        Today is all about you ✨
+    </p>
 
-            <p>
-                Today is all about you ✨
-            </p>
+    <button class="btn" onclick="nextStep(2)">
+        NEXT ➜
+    </button>
 
-            <button class="btn"
-                onclick="nextStep(2)">
-                NEXT ➜
-            </button>
+</div>
 
-        </div>
+<!-- PAGE 2 -->
 
-        <!-- PAGE 2 -->
+<div class="step" id="step2">
 
-        <div class="step" id="step2">
+    <h2>
+        ❤️ A Special Surprise ❤️
+    </h2>
 
-            <h2>
-                ❤️ A Special Surprise For The Most Special Person ❤️
-            </h2>
+    <p>
+        Because you are very special to me ❤️
+    </p>
 
-            <p>
-                Because you are very special to me ❤️
-            </p>
+    <button class="btn" onclick="nextStep(3)">
+        CONTINUE ✨
+    </button>
 
-            <button class="btn"
-                onclick="nextStep(3)">
-                CONTINUE ✨
-            </button>
+</div>
 
-        </div>
+<!-- PAGE 3 -->
 
-        <!-- PAGE 3 -->
+<div class="step" id="step3">
 
-        <div class="step" id="step3">
+    <h2>
+        👀 Wanna See What I Made?
+    </h2>
 
-            <h2>
-                👀 Do You Wanna See What I Made??
-            </h2>
+    <div style="display:flex; gap:20px;">
 
-            <div style="display:flex; gap:20px;">
+        <button class="btn" onclick="nextStep(4)">
+            YES 😍
+        </button>
 
-                <button class="btn"
-                    onclick="nextStep(4)">
-                    YES 😍
-                </button>
+        <button class="btn" onclick="showNoMessage()">
+            NO 🙈
+        </button>
 
-                <button class="btn"
-                    onclick="showNoMessage()">
-                    NO 🙈
-                </button>
+    </div>
 
-            </div>
+    <p id="noMsg"
+       style="margin-top:20px;color:#ff4d6d;">
+    </p>
 
-            <p id="noMsg"
-                style="margin-top:20px;color:#ff4d6d;">
-            </p>
+</div>
 
-        </div>
+<!-- PAGE 4 -->
 
-        <!-- PAGE 4 -->
+<div class="step" id="step4">
 
-        <div class="step" id="step4">
+    <h1>
+        🎵 Ready For Music?
+    </h1>
 
-            <h1>
-                🎵 Ready For Music?
-            </h1>
+    <button class="btn"
+        onclick="startMusic(); nextStep(5)">
+        PLAY MUSIC ▶
+    </button>
 
-            <p>
-                Click below to start the surprise music ✨
-            </p>
+</div>
 
-            <button class="btn"
-                onclick="startMusic(); nextStep(5)">
-                PLAY MUSIC ▶
-            </button>
+<!-- PAGE 5 -->
 
-        </div>
+<div class="step" id="step5">
 
-        <!-- PAGE 5 -->
+    <h1>
+        💡 Turn On The Lights ✨
+    </h1>
 
-        <div class="step" id="step5">
+    <button class="btn"
+        onclick="lightsOn(); nextStep(6)">
+        LIGHTS ON 💡
+    </button>
 
-            <h1>
-                💡 Turn On The Lights ✨
-            </h1>
+</div>
 
-            <button class="btn"
-                onclick="lightsOn(); nextStep(6)">
-                LIGHTS ON 💡
-            </button>
+<!-- PAGE 6 -->
 
-        </div>
+<div class="step" id="step6">
 
-        <!-- PAGE 6 -->
+    <h1 style="font-size:80px;">
+        🎂
+    </h1>
 
-        <div class="step" id="step6">
+    <h2>
+        Time To Cut The Cake ✨
+    </h2>
 
-            <h1 style="font-size:80px;">
-                🎂
-            </h1>
+    <button class="btn"
+        onclick="showCakeMessage()">
+        CUT THE CAKE 🔪
+    </button>
 
-            <h2>
-                Time To Cut The Cake ✨
-            </h2>
+    <p id="cakeMsg"
+       style="margin-top:20px;
+       color:black;
+       font-size:22px;">
+    </p>
 
-             <button class="btn"
-                onclick="showCakeMessage()">
-                CUT THE CAKE 🔪
-            </button>
+    <button class="btn"
+        id="cakeNextBtn"
+        style="display:none;"
+        onclick="celebrate(); nextStep(7)">
+        NEXT SURPRISE 🎉
+    </button>
 
-            <p id="cakeMsg"
-               style="
-               margin-top:20px;
-               color:black;
-               font-size:22px;">
-            </p>
+</div>
 
-            <button class="btn"
-                id="cakeNextBtn"
-                style="display:none;"
-                onclick="celebrate(); nextStep(7)">
-                OKAY ARE YOU READY FOR NEXT SURPRISE 🎉
-            </button>
+<!-- PAGE 7 -->
 
-        </div>
+<div class="step" id="step7">
 
-        <!-- PAGE 7 -->
+    <h2 style="color:#ff4d6d;">
+        📸 Beautiful Memories 📸
+    </h2>
 
-        <div class="step" id="step7">
+    <div class="slider">
 
-            <h2 style="color:#ff4d6d;">
-                📸 Beautiful Memories 📸
-            </h2>
+        <div class="slides">
 
-            <div class="gallery-container">
+            <!-- CHANGE THESE PHOTO NAMES -->
 
-                <img src="photo1.jpg">
-                <img src="photo2.jpg">
-                <img src="photo3.jpg">
-                <img src="photo4.jpg">
-
-            </div>
-
-            <button class="btn"
-                onclick="nextStep(8)">
-                FINAL SURPRISE 🎁
-            </button>
-
-        </div>
-
-        <!-- PAGE 8 -->
-
-        <div class="step" id="step8">
-
-            <div id="typewriter"
-                class="typing-text">
-            </div>
-
-            <button class="btn"
-                onclick="location.reload()">
-                REPLAY 🔄
-            </button>
+            <img src="photo1.jpg" onclick="openFull(this.src)">
+            <img src="photo2.jpg" onclick="openFull(this.src)">
+            <img src="photo3.jpg" onclick="openFull(this.src)">
+            <img src="photo4.jpg" onclick="openFull(this.src)">
 
         </div>
 
     </div>
 
-    <script>
+    <button class="btn"
+        onclick="nextStep(8)">
+        FINAL SURPRISE 🎁
+    </button>
 
-        const message =
+</div>
 
-`Dear Sanjiii ❤️
+<!-- PAGE 8 -->
+
+<div class="step" id="step8">
+
+    <div id="typewriter"
+         class="typing-text">
+    </div>
+
+    <button class="btn"
+        onclick="location.reload()">
+        REPLAY 🔄
+    </button>
+
+</div>
+
+</div>
+
+<!-- FULL SCREEN VIEW -->
+
+<div id="fullScreen"
+     onclick="closeFull()">
+
+    <img id="fullImg">
+
+</div>
+
+<script>
+
+const message =
+
+`Dear ❤️
 
 You are one of the most special persons in my life.
-
-I wanted to make something beautiful just for you ✨
 
 Thank you for all the smiles,
 support,
@@ -349,129 +418,141 @@ success,
 love,
 and endless joy 🎂✨
 
-Happy Birthday Once Again Anna ❤️`;
+Happy Birthday Once Again ❤️`;
 
-        function nextStep(num){
+function nextStep(num){
 
-            document.querySelectorAll('.step')
-            .forEach(step =>
-                step.classList.remove('active'));
+    document.querySelectorAll('.step')
+    .forEach(step =>
+        step.classList.remove('active'));
 
-            document.getElementById('step'+num)
-            .classList.add('active');
+    document.getElementById('step'+num)
+    .classList.add('active');
 
-            if(num === 8){
-                typeWriter();
-            }
+    if(num === 8){
+        typeWriter();
+    }
+}
+
+function startMusic(){
+
+    document.getElementById('bgMusic')
+    .play();
+}
+
+function showNoMessage(){
+
+    document.getElementById('noMsg')
+    .innerHTML =
+    "😎 Smart people click YES!";
+}
+
+function lightsOn(){
+
+    document.body.style.background = "white";
+    document.body.style.color = "black";
+}
+
+function showCakeMessage(){
+
+    document.getElementById('cakeMsg')
+    .innerHTML =
+    "😂 There is no cake... first give party! 🎉";
+
+    document.getElementById('cakeNextBtn')
+    .style.display = "inline-block";
+}
+
+function celebrate(){
+
+    confetti({
+        particleCount:200,
+        spread:100,
+        origin:{ y:0.6 },
+        colors:['#ff4d6d','#ffffff','#ffd700']
+    });
+}
+
+function typeWriter(){
+
+    let i = 0;
+
+    const target =
+    document.getElementById("typewriter");
+
+    target.innerHTML = "";
+
+    function type(){
+
+        if(i < message.length){
+
+            target.innerHTML +=
+            message.charAt(i) === "\n"
+            ? "<br>"
+            : message.charAt(i);
+
+            i++;
+
+            target.scrollTop =
+            target.scrollHeight;
+
+            setTimeout(type,80);
         }
+    }
 
-        function startMusic(){
+    type();
+}
 
-            document.getElementById('bgMusic')
-            .play();
+/* FULL SCREEN IMAGE */
 
-        }
+function openFull(src){
 
-        function showNoMessage(){
+    document.getElementById("fullScreen")
+    .style.display = "flex";
 
-            document.getElementById('noMsg')
-            .innerHTML =
-            "😎 Smart people click YES!";
+    document.getElementById("fullImg")
+    .src = src;
+}
 
-        }
+function closeFull(){
 
-        function lightsOn(){
+    document.getElementById("fullScreen")
+    .style.display = "none";
+}
 
-            document.body.style.background = "white";
+/* FLOATING HEARTS */
 
-            document.body.style.color = "black";
+function createDots(){
 
-        }
+    for(let i=0;i<20;i++){
 
-        function showCakeMessage(){
+        const dot =
+        document.createElement('div');
 
-            document.getElementById('cakeMsg')
-            .innerHTML =
-            "😂 There is no cake... first give party! 🎉";
+        dot.className='dot';
 
-            document.getElementById('cakeNextBtn')
-            .style.display = "inline-block";
+        const size =
+        Math.random()*12+5+'px';
 
-        }
+        dot.style.width=size;
+        dot.style.height=size;
 
-        function celebrate(){
+        dot.style.left=
+        Math.random()*100+'vw';
 
-            confetti({
-                particleCount:200,
-                spread:100,
-                origin:{ y:0.6 },
-                colors:['#ff4d6d','#ffffff','#ffd700']
-            });
+        dot.style.animationDelay=
+        Math.random()*5+'s';
 
-        }
+        dot.style.animationDuration=
+        (Math.random()*3+4)+'s';
 
-        function typeWriter(){
+        document.body.appendChild(dot);
+    }
+}
 
-            let i = 0;
+createDots();
 
-            const target =
-            document.getElementById("typewriter");
-
-            target.innerHTML = "";
-
-            function type(){
-
-                if(i < message.length){
-
-                    target.innerHTML +=
-                    message.charAt(i) === "\n"
-                    ? "<br>"
-                    : message.charAt(i);
-
-                    i++;
-
-                    target.scrollTop =
-                    target.scrollHeight;
-
-                    setTimeout(type,80);
-                }
-            }
-
-            type();
-        }
-
-        function createDots(){
-
-            for(let i=0;i<20;i++){
-
-                const dot =
-                document.createElement('div');
-
-                dot.className='dot';
-
-                const size =
-                Math.random()*12+5+'px';
-
-                dot.style.width=size;
-                dot.style.height=size;
-
-                dot.style.left=
-                Math.random()*100+'vw';
-
-                dot.style.animationDelay=
-                Math.random()*5+'s';
-
-                dot.style.animationDuration=
-                (Math.random()*3+4)+'s';
-
-                document.body.appendChild(dot);
-            }
-        }
-
-        createDots();
-
-    </script>
+</script>
 
 </body>
-
 </html>
