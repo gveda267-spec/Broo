@@ -73,7 +73,13 @@ body{
     background:#ff1a4a;
 }
 
-/* SIMPLE SLIDER */
+/* REPEAT BUTTON */
+
+.repeat-btn{
+    margin-top:20px;
+}
+
+/* SLIDER */
 
 .simple-slider{
     position:relative;
@@ -98,8 +104,6 @@ body{
     transition:opacity 1.5s ease-in-out;
     cursor:pointer;
 }
-
-/* ACTIVE IMAGE */
 
 .active-slide{
     opacity:1;
@@ -126,7 +130,7 @@ body{
     object-fit:contain;
 }
 
-/* LETTER STYLE MESSAGE */
+/* LETTER STYLE */
 
 .typing-text{
     background:#0a0a0a;
@@ -161,7 +165,7 @@ body{
     display:none;
 }
 
-/* FLOATING HEARTS */
+/* HEARTS */
 
 .dot{
     position:absolute;
@@ -229,15 +233,15 @@ body{
 
 <body>
 
-<!-- OPENING MUSIC -->
+<!-- FIRST MUSIC -->
 
 <audio id="openingMusic">
     <source src="birthday_song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- SLIDESHOW MUSIC -->
+<!-- SECOND MUSIC -->
 
-<audio id="slideMusic" loop autoplay>
+<audio id="slideMusic" loop>
     <source src="slid music.mp3" type="audio/mpeg">
 </audio>
 
@@ -372,7 +376,9 @@ body{
         id="cakeNextBtn"
         style="display:none;"
         onclick="celebrate(); nextStep(7); startSlideMusic();">
+
         NEXT SURPRISE 🎉
+
     </button>
 
 </div>
@@ -385,7 +391,9 @@ body{
         color:#ff4d6d;
         margin-bottom:20px;
         font-size:30px;">
+
         📸 Beautiful Memories 📸
+
     </h2>
 
     <div class="simple-slider">
@@ -409,8 +417,10 @@ body{
     </div>
 
     <button class="btn"
-        onclick="nextStep(8)">
+        onclick="stopSlideMusic(); nextStep(8)">
+
         FINAL SURPRISE 🎁
+
     </button>
 
 </div>
@@ -431,11 +441,20 @@ body{
          class="typing-text">
     </div>
 
-</div>
+    <!-- REPEAT BUTTON -->
+
+    <button class="btn repeat-btn"
+        onclick="location.reload()">
+
+        🔄 REPEAT AGAIN
+
+    </button>
 
 </div>
 
-<!-- FULLSCREEN IMAGE -->
+</div>
+
+<!-- FULLSCREEN -->
 
 <div id="fullScreen"
      onclick="closeFull()">
@@ -478,7 +497,7 @@ function nextStep(num){
     }
 }
 
-/* OPENING MUSIC */
+/* FIRST MUSIC */
 
 function startOpeningMusic(){
 
@@ -486,7 +505,7 @@ function startOpeningMusic(){
     .play();
 }
 
-/* SLIDESHOW MUSIC */
+/* SECOND MUSIC */
 
 function startSlideMusic(){
 
@@ -501,8 +520,24 @@ function startSlideMusic(){
     slide.currentTime = 0;
 
     slide.play()
-    .catch(err =>
-        console.log(err));
+    .then(() => {
+
+        console.log("Slide music started");
+
+    })
+    .catch(err => {
+
+        console.log(err);
+
+    });
+}
+
+/* STOP MUSIC */
+
+function stopSlideMusic(){
+
+    document.getElementById('slideMusic')
+    .pause();
 }
 
 /* NO BUTTON */
